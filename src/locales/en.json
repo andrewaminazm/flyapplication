@@ -91,5 +91,72 @@
     "bookNow": "Book Now",
     "loading": "Loading...",
     "backToWebsite": "Back to website"
+  },
+  "offer": {
+    "off": "OFF",
+    "claimOffer": "Claim this offer",
+    "viewDestinations": "View destinations",
+    "backToOffers": "Back to offers",
+    "notFound": "Offer not found."
+  },
+  "about": {
+    "title": "About FlyTravel",
+    "subtitle": "Your trusted partner for unforgettable travel experiences",
+    "ourStory": "Our Story",
+    "ourStory1": "Founded with a passion for exploration and a commitment to excellence, FlyTravel has been helping travelers discover the world's most incredible destinations since day one.",
+    "ourStory2": "We believe that travel is more than just visiting new places—it's about creating memories, experiencing cultures, and connecting with people from around the globe.",
+    "ourStory3": "Our team of travel experts carefully curates each destination and package to ensure you have the adventure of a lifetime.",
+    "ourMission": "Our Mission",
+    "ourMissionSub": "To make extraordinary travel experiences accessible and affordable for everyone, while providing exceptional service every step of the way.",
+    "globalReach": "Global Reach",
+    "globalReachDesc": "Access to destinations worldwide with local expertise and partnerships in every region.",
+    "qualityFirst": "Quality First",
+    "qualityFirstDesc": "We handpick accommodations, experiences, and partners to ensure the highest standards.",
+    "customerFocus": "Customer Focus",
+    "customerFocusDesc": "Your satisfaction is our priority with 24/7 support and personalized service.",
+    "whyChooseUs": "Why Choose FlyTravel?",
+    "bestPriceGuarantee": "Best Price Guarantee",
+    "bestPriceGuaranteeDesc": "Find a lower price? We'll match it and give you an extra 5% off.",
+    "expertGuidance": "Expert Guidance",
+    "expertGuidanceDesc": "Our travel specialists have visited every destination we offer.",
+    "travelProtection": "Travel Protection",
+    "travelProtectionDesc": "Comprehensive travel insurance and flexible booking options.",
+    "support24": "24/7 Support",
+    "support24Desc": "Round-the-clock assistance wherever you are in the world.",
+    "valuesTitle": "Our Core Values",
+    "integrity": "Integrity",
+    "integrityDesc": "Honest, transparent pricing and communication always.",
+    "excellence": "Excellence",
+    "excellenceDesc": "Striving for perfection in every detail of your journey.",
+    "innovation": "Innovation",
+    "innovationDesc": "Using technology to make travel planning effortless.",
+    "sustainability": "Sustainability",
+    "sustainabilityDesc": "Promoting responsible travel and eco-friendly practices.",
+    "readyTitle": "Ready to Start Your Journey?",
+    "readySub": "Get in touch with our travel experts and let us help you plan the perfect getaway.",
+    "emailUs": "Email Us",
+    "callUs": "Call Us"
+  },
+  "destinations": {
+    "title": "All Destinations",
+    "subtitle": "Explore our full range of travel packages. Click on any destination to see details and book.",
+    "popular": "Popular",
+    "viewDetails": "View details",
+    "noDestinations": "No destinations yet. Check back soon!"
+  },
+  "destination": {
+    "aboutDestination": "About This Destination",
+    "from": "From",
+    "perPerson": "per person",
+    "orCall": "Or call us",
+    "duration": "Duration",
+    "viewAllDestinations": "View all destinations"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about booking with FlyTravel",
+    "stillQuestions": "Still have questions?",
+    "contactUs": "Contact Us",
+    "noFaq": "No FAQ items yet. Check back soon!"
   }
 }
