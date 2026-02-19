@@ -94,31 +94,41 @@
     {
       "id": "1",
       "question": "How do I book a trip?",
+      "questionAr": "كيف أحجز رحلة؟",
       "answer": "You can book by calling us, emailing, or filling out the contact form on our website. Our travel experts will guide you through the entire process and help you choose the perfect package.",
+      "answerAr": "يمكنك الحجز بالاتصال بنا أو إرسال بريد إلكتروني أو تعبئة نموذج التواصل على موقعنا. خبراؤنا سيرشدونك خلال العملية ويساعدونك في اختيار الباقة المناسبة.",
       "order": 1
     },
     {
       "id": "2",
       "question": "What payment methods do you accept?",
+      "questionAr": "ما وسائل الدفع التي تقبلونها؟",
       "answer": "We accept all major credit cards, debit cards, and bank transfers. Payment plans are also available for qualifying bookings. Contact us for details.",
+      "answerAr": "نقبل بطاقات الائتمان والخصم الرئيسية والتحويل البنكي. تتوفر أيضاً خطط دفع للحجوزات المؤهلة. تواصل معنا للتفاصيل.",
       "order": 2
     },
     {
       "id": "3",
       "question": "Can I cancel or modify my booking?",
+      "questionAr": "هل يمكنني إلغاء أو تعديل حجزي؟",
       "answer": "Yes! Our flexible booking policy allows modifications up to 48 hours before departure. Cancellation terms vary by destination and package—contact us for specific details.",
+      "answerAr": "نعم! سياسة الحجز المرنة تسمح بالتعديل حتى 48 ساعة قبل المغادرة. شروط الإلغاء تختلف حسب الوجهة والباقة—تواصل معنا للتفاصيل.",
       "order": 3
     },
     {
       "id": "4",
       "question": "Do you offer travel insurance?",
+      "questionAr": "هل تقدمون تأمين سفر؟",
       "answer": "Absolutely! We highly recommend travel insurance and can help you choose the right coverage for your trip during the booking process.",
+      "answerAr": "بالتأكيد! ننصح بشدة بتأمين السفر ويمكننا مساعدتك في اختيار التغطية المناسبة لرحلتك أثناء الحجز.",
       "order": 4
     },
     {
       "id": "5",
       "question": "Are your prices all-inclusive?",
+      "questionAr": "هل أسعاركم شاملة؟",
       "answer": "Package inclusions vary. Each destination page and offer lists what's included (accommodation, meals, activities). Our team will clarify everything before you book.",
+      "answerAr": "محتوى الباقات يختلف. كل صفحة وجهة وعرض توضح ما المشمول (الإقامة، الوجبات، الأنشطة). فريقنا يوضح كل شيء قبل الحجز.",
       "order": 5
     }
   ],

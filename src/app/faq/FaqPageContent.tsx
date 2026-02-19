@@ -7,12 +7,23 @@ import FaqAccordion from './FaqAccordion';
 interface FaqItem {
   id: string;
   question: string;
+  questionAr?: string;
   answer: string;
+  answerAr?: string;
   order: number;
 }
 
+function getLocalizedItems(items: FaqItem[], locale: string): FaqItem[] {
+  return items.map((item) => ({
+    ...item,
+    question: locale === 'ar' && item.questionAr ? item.questionAr : item.question,
+    answer: locale === 'ar' && item.answerAr ? item.answerAr : item.answer,
+  }));
+}
+
 export default function FaqPageContent({ faqItems }: { faqItems: FaqItem[] }) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  const displayItems = getLocalizedItems(faqItems, locale);
 
   return (
     <div className="min-h-screen bg-white">
@@ -37,8 +48,8 @@ export default function FaqPageContent({ faqItems }: { faqItems: FaqItem[] }) {
           <h1 className="text-4xl font-bold text-center mb-4">{t('faq.title')}</h1>
           <p className="text-center text-gray-600 mb-12 text-lg">{t('faq.subtitle')}</p>
 
-          {faqItems.length > 0 ? (
-            <FaqAccordion items={faqItems} />
+          {displayItems.length > 0 ? (
+            <FaqAccordion items={displayItems} />
           ) : (
             <div className="text-center py-12 text-gray-500">
               <p>{t('faq.noFaq')}</p>
