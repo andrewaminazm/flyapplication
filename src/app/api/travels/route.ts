@@ -38,7 +38,6 @@ export async function POST(request: NextRequest) {
       const existingIndex = allData.destinations.findIndex(
         (d: any) => d.id === itemData.id
       );
-      
       if (existingIndex >= 0) {
         allData.destinations[existingIndex] = itemData;
       } else {
@@ -48,11 +47,30 @@ export async function POST(request: NextRequest) {
       const existingIndex = allData.offers.findIndex(
         (o: any) => o.id === itemData.id
       );
-      
       if (existingIndex >= 0) {
         allData.offers[existingIndex] = itemData;
       } else {
         allData.offers.push(itemData);
+      }
+    } else if (type === 'testimonials') {
+      if (!allData.testimonials) allData.testimonials = [];
+      const existingIndex = allData.testimonials.findIndex(
+        (t: any) => t.id === itemData.id
+      );
+      if (existingIndex >= 0) {
+        allData.testimonials[existingIndex] = itemData;
+      } else {
+        allData.testimonials.push(itemData);
+      }
+    } else if (type === 'faq') {
+      if (!allData.faq) allData.faq = [];
+      const existingIndex = allData.faq.findIndex(
+        (f: any) => f.id === itemData.id
+      );
+      if (existingIndex >= 0) {
+        allData.faq[existingIndex] = itemData;
+      } else {
+        allData.faq.push(itemData);
       }
     }
 
@@ -80,6 +98,12 @@ export async function DELETE(request: NextRequest) {
       );
     } else if (type === 'offers') {
       allData.offers = allData.offers.filter((o: any) => o.id !== id);
+    } else if (type === 'testimonials' && allData.testimonials) {
+      allData.testimonials = allData.testimonials.filter(
+        (t: any) => t.id !== id
+      );
+    } else if (type === 'faq' && allData.faq) {
+      allData.faq = allData.faq.filter((f: any) => f.id !== id);
     }
 
     await writeData(allData);

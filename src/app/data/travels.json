@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": "Bali, Indonesia",
-      "description": "Experience paradise with stunning beaches, ancient temples, and vibrant culture",
+      "description": "Experience paradise with stunning beaches, ancient temples, and vibrant culture. From the rice terraces of Ubud to the nightlife of Seminyak, Bali offers something for every traveler. Enjoy traditional dance performances, world-class spas, and some of the best cuisine in Southeast Asia.",
       "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&auto=format&fit=crop",
       "price": 899,
       "duration": "7 Days / 6 Nights",
@@ -12,7 +12,7 @@
     {
       "id": "2",
       "name": "Paris, France",
-      "description": "The City of Love awaits with iconic landmarks and exquisite cuisine",
+      "description": "The City of Love awaits with iconic landmarks and exquisite cuisine. Explore the Eiffel Tower, Louvre Museum, and charming Montmartre. Stroll along the Seine, enjoy café culture, and discover why Paris remains the world's most visited city.",
       "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&auto=format&fit=crop",
       "price": 1299,
       "duration": "5 Days / 4 Nights",
@@ -21,7 +21,7 @@
     {
       "id": "3",
       "name": "Dubai, UAE",
-      "description": "Luxury shopping, ultramodern architecture, and desert adventures",
+      "description": "Luxury shopping, ultramodern architecture, and desert adventures. Experience the Burj Khalifa, Palm Jumeirah, and traditional souks. From dune bashing to fine dining, Dubai delivers an unforgettable blend of tradition and innovation.",
       "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&auto=format&fit=crop",
       "price": 1099,
       "duration": "6 Days / 5 Nights",
@@ -30,7 +30,7 @@
     {
       "id": "4",
       "name": "Maldives",
-      "description": "Crystal clear waters, overwater bungalows, and pristine beaches",
+      "description": "Crystal clear waters, overwater bungalows, and pristine beaches. The Maldives is the ultimate honeymoon and relaxation destination. Snorkel with marine life, enjoy spa treatments over the water, and watch stunning sunsets from your private villa.",
       "image": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&auto=format&fit=crop",
       "price": 1599,
       "duration": "5 Days / 4 Nights",
@@ -53,6 +53,61 @@
       "discount": "20",
       "validUntil": "2026-12-31",
       "active": true
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "1",
+      "author": "Sarah M.",
+      "text": "Amazing experience! FlyTravel helped us plan the perfect honeymoon in Bali. Everything was seamless from booking to the last day. Highly recommend!",
+      "rating": 5,
+      "featured": true
+    },
+    {
+      "id": "2",
+      "author": "James K.",
+      "text": "Best prices I found anywhere. The team was responsive and our Paris trip exceeded expectations. Will definitely book again.",
+      "rating": 5,
+      "featured": true
+    },
+    {
+      "id": "3",
+      "author": "Emily R.",
+      "text": "Professional, friendly, and they really know their destinations. Our Dubai package was worth every penny. 5 stars!",
+      "rating": 5,
+      "featured": true
+    }
+  ],
+  "faq": [
+    {
+      "id": "1",
+      "question": "How do I book a trip?",
+      "answer": "You can book by calling us, emailing, or filling out the contact form on our website. Our travel experts will guide you through the entire process and help you choose the perfect package.",
+      "order": 1
+    },
+    {
+      "id": "2",
+      "question": "What payment methods do you accept?",
+      "answer": "We accept all major credit cards, debit cards, and bank transfers. Payment plans are also available for qualifying bookings. Contact us for details.",
+      "order": 2
+    },
+    {
+      "id": "3",
+      "question": "Can I cancel or modify my booking?",
+      "answer": "Yes! Our flexible booking policy allows modifications up to 48 hours before departure. Cancellation terms vary by destination and package—contact us for specific details.",
+      "order": 3
+    },
+    {
+      "id": "4",
+      "question": "Do you offer travel insurance?",
+      "answer": "Absolutely! We highly recommend travel insurance and can help you choose the right coverage for your trip during the booking process.",
+      "order": 4
+    },
+    {
+      "id": "5",
+      "question": "Are your prices all-inclusive?",
+      "answer": "Package inclusions vary. Each destination page and offer lists what's included (accommodation, meals, activities). Our team will clarify everything before you book.",
+      "order": 5
     }
   ]
 }

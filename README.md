@@ -11,12 +11,27 @@ A modern, professional travel agency website with an admin dashboard to manage d
 - **Responsive Design** - Works perfectly on desktop, tablet, and mobile devices
 - **Modern UI** - Clean, professional design with smooth animations
 
-### Admin Dashboard
+### Admin Dashboard (password protected)
+- **Secure Login** - Password-protected at `/admin/login`
 - **Manage Destinations** - Add, edit, and delete travel destinations
 - **Manage Offers** - Create and update special promotional offers
+- **Manage Testimonials** - Add customer reviews (show on homepage)
+- **Manage FAQ** - Add and reorder FAQ items for the FAQ page
 - **Featured Control** - Mark destinations as featured to show on homepage
 - **Real-time Updates** - Changes appear instantly on the website
-- **Statistics Overview** - Quick view of total destinations, active offers, etc.
+- **Statistics Overview** - Quick view of content counts
+
+### Public Pages
+- **Homepage** - Hero, offers, featured destinations, testimonials
+- **All Destinations** - [/destinations](/destinations) – list of every destination
+- **Destination Detail** - [/destinations/[id]](/destinations/1) – full details and Book Now
+- **About** - [/about](/about) – company story and mission
+- **Contact** - [/contact](/contact) – contact form and info
+- **FAQ** - [/faq](/faq) – frequently asked questions
+
+### 🚀 Future Features (see [FEATURE_ROADMAP.md](FEATURE_ROADMAP.md))
+- Contact form → email • Inquiries in admin • Search & filter
+- Newsletter • Terms & Privacy • Booking & payments
 
 ## 🚀 Getting Started
 
@@ -25,15 +40,32 @@ A modern, professional travel agency website with an admin dashboard to manage d
 npm install
 ```
 
-### 2. Run Development Server
+### 2. Set Up Admin Password (required for admin access)
+
+Copy the example env file and set your admin password and session secret:
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` and set:
+
+```
+ADMIN_PASSWORD=your-secure-password
+ADMIN_SESSION_SECRET=any-long-random-string-for-sessions
+```
+
+Use a strong password and a long random string (e.g. 32+ characters) for `ADMIN_SESSION_SECRET`. Without these, the admin login will not work.
+
+### 3. Run Development Server
 ```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the website.
 
-### 3. Access Admin Dashboard
-Visit [http://localhost:3000/admin](http://localhost:3000/admin) to manage content.
+### 4. Access Admin Dashboard
+Visit [http://localhost:3000/admin](http://localhost:3000/admin). You will be redirected to the login page; use the password you set in `.env.local`.
 
 ## 📁 Project Structure
 
@@ -90,19 +122,27 @@ Replace `blue-600` with your brand color throughout the files.
 
 ## 🌐 Deployment Options
 
-### Option 1: Vercel (Recommended - FREE)
+### ⭐ Option 1: Vercel (STRONGLY Recommended - FREE & EASIEST)
+
+**Best for Next.js - Made by the Next.js team! Works perfectly with zero configuration.**
 
 **Deploy:**
 1. Push code to GitHub
 2. Go to [vercel.com](https://vercel.com)
-3. Import your GitHub repository
-4. Click "Deploy" (takes 2 minutes)
+3. Sign up with GitHub
+4. Click "Add New..." → "Project"
+5. Import your repository
+6. Click "Deploy" (Vercel auto-detects settings)
+7. **Done in 2 minutes!** ✅
 
 **After Deployment:**
 - ✅ Vercel gives you a **FREE URL** like: `https://your-project.vercel.app`
+- ✅ **WORKS IMMEDIATELY** - No configuration needed
+- ✅ Perfect Next.js support (SSR, API routes, everything)
 - 🌐 **Share this URL** with your client to show the live website
 - 🔗 You can add a custom domain later (e.g., `www.yourcompany.com`)
 - 📊 View analytics and logs in Vercel dashboard
+- 🚀 Auto-deploys when you push to GitHub
 
 **Access Your Site:**
 ```
@@ -112,13 +152,35 @@ About Page:   https://your-project.vercel.app/about
 Contact Page: https://your-project.vercel.app/contact
 ```
 
-### Option 2: Netlify (FREE)
+**Why Vercel?**
+- ✅ Zero configuration (just click deploy)
+- ✅ Made for Next.js
+- ✅ Automatic HTTPS/SSL
+- ✅ Global CDN (super fast worldwide)
+- ✅ Free forever for projects like this
+- ✅ Auto-deploys on git push
+- ✅ Preview deployments for testing
 
-**Deploy:**
-1. Push code to GitHub
-2. Go to [netlify.com](https://netlify.com)
-3. Connect your repository
-4. Click "Deploy"
+---
+
+### Option 2: Netlify (Requires Configuration)
+
+**⚠️ Important:** Netlify needs extra configuration for Next.js 16.
+
+**If you already deployed to Netlify and got "Page not found" error:**
+- See `NETLIFY_FIX.md` for detailed fix instructions
+- Or switch to Vercel (easier and recommended)
+
+**To use Netlify:**
+1. Make sure `netlify.toml` file exists (already created)
+2. Install dependencies: `npm install`
+3. Push to GitHub
+4. Go to [netlify.com](https://netlify.com)
+5. Connect your repository
+6. Configure build settings:
+   - Build command: `npm run build`
+   - Publish directory: `.next`
+7. Click "Deploy"
 
 **After Deployment:**
 - ✅ Netlify gives you a **FREE URL** like: `https://random-name-123.netlify.app`
@@ -126,18 +188,18 @@ Contact Page: https://your-project.vercel.app/contact
 - 🌐 **Share this URL** with your client
 - 🔗 Add custom domain in Domain Settings
 
-**Access Your Site:**
-```
-Live Website: https://yourcompany.netlify.app
-Admin Panel:  https://yourcompany.netlify.app/admin
-```
+**Note:** If you get errors, Vercel is much easier for Next.js projects!
 
-### Option 3: Traditional Hosting
+---
+
+### Option 3: Traditional Hosting (Advanced)
 1. Run `npm run build`
 2. Upload the `.next` folder and files to your hosting
 3. Set up Node.js environment
 4. Run `npm start`
 5. Access via your hosting provider's URL or domain
+
+**Not recommended unless you have specific hosting requirements.**
 
 ## 💰 Cost Breakdown
 

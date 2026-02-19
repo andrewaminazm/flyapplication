@@ -14,6 +14,7 @@ export default async function Home() {
   const data = await getData();
   const featuredDestinations = data.destinations.filter((dest: any) => dest.featured);
   const activeOffers = data.offers.filter((offer: any) => offer.active);
+  const featuredTestimonials = (data.testimonials || []).filter((t: any) => t.featured);
 
   return (
     <div className="min-h-screen bg-white">
@@ -25,16 +26,17 @@ export default async function Home() {
               <span className="text-2xl font-bold text-blue-600">✈️ FlyTravel</span>
             </div>
             <div className="hidden md:flex space-x-8">
-              <a href="#destinations" className="text-gray-700 hover:text-blue-600">Destinations</a>
+              <Link href="/destinations" className="text-gray-700 hover:text-blue-600">Destinations</Link>
               <a href="#offers" className="text-gray-700 hover:text-blue-600">Offers</a>
               <Link href="/about" className="text-gray-700 hover:text-blue-600">About</Link>
               <Link href="/contact" className="text-gray-700 hover:text-blue-600">Contact</Link>
+              <Link href="/faq" className="text-gray-700 hover:text-blue-600">FAQ</Link>
             </div>
             <Link 
-              href="/admin" 
+              href="/admin/login" 
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
             >
-              Admin Login
+              Admin
             </Link>
           </div>
         </div>
@@ -93,7 +95,11 @@ export default async function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredDestinations.map((destination: any) => (
-              <div key={destination.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2">
+              <Link
+                key={destination.id}
+                href={`/destinations/${destination.id}`}
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 block"
+              >
                 <div className="relative h-64">
                   <Image
                     src={destination.image}
@@ -110,13 +116,18 @@ export default async function Home() {
                       <p className="text-sm text-gray-500">{destination.duration}</p>
                       <p className="text-2xl font-bold text-blue-600">${destination.price}</p>
                     </div>
-                    <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                    <span className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition inline-block">
                       Book Now
-                    </button>
+                    </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link href="/destinations" className="text-blue-600 hover:text-blue-700 font-semibold text-lg">
+              View all destinations →
+            </Link>
           </div>
         </div>
       </section>
@@ -144,6 +155,29 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials */}
+      {featuredTestimonials.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-center mb-4">What Our Customers Say</h2>
+            <p className="text-center text-gray-600 mb-12 text-lg">Real experiences from real travelers</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {featuredTestimonials.map((t: any) => (
+                <div key={t.id} className="bg-gray-50 rounded-xl p-8 shadow-sm">
+                  <div className="flex text-yellow-500 mb-4">
+                    {Array.from({ length: t.rating }).map((_, i) => (
+                      <span key={i}>★</span>
+                    ))}
+                  </div>
+                  <p className="text-gray-700 mb-6 italic">&ldquo;{t.text}&rdquo;</p>
+                  <p className="font-semibold text-gray-900">— {t.author}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Contact Section */}
       <section id="contact" className="py-16 bg-white">
@@ -193,10 +227,11 @@ export default async function Home() {
             <div>
               <h4 className="font-bold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#destinations" className="hover:text-white">Destinations</a></li>
+                <li><Link href="/destinations" className="hover:text-white">Destinations</Link></li>
                 <li><a href="#offers" className="hover:text-white">Offers</a></li>
                 <li><Link href="/about" className="hover:text-white">About Us</Link></li>
                 <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
+                <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
               </ul>
             </div>
             <div>
