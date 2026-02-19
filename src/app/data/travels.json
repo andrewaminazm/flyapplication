@@ -3,37 +3,49 @@
     {
       "id": "1",
       "name": "Bali, Indonesia",
+      "nameAr": "بالي، إندونيسيا",
       "description": "Experience paradise with stunning beaches, ancient temples, and vibrant culture. From the rice terraces of Ubud to the nightlife of Seminyak, Bali offers something for every traveler. Enjoy traditional dance performances, world-class spas, and some of the best cuisine in Southeast Asia.",
+      "descriptionAr": "استمتع بالجنة مع شواطئ خلابة ومعابد قديمة وثقافة نابضة. من مصاطب الأرز في أوبود إلى حياة الليل في سيمينياك، بالي تناسب كل مسافر. استمتع بعروض الرقص التقليدية ومنتجعات عالمية وأفضل المأكولات في جنوب شرق آسيا.",
       "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&auto=format&fit=crop",
       "price": 899,
       "duration": "7 Days / 6 Nights",
+      "durationAr": "٧ أيام / ٦ ليالٍ",
       "featured": true
     },
     {
       "id": "2",
       "name": "Paris, France",
+      "nameAr": "باريس، فرنسا",
       "description": "The City of Love awaits with iconic landmarks and exquisite cuisine. Explore the Eiffel Tower, Louvre Museum, and charming Montmartre. Stroll along the Seine, enjoy café culture, and discover why Paris remains the world's most visited city.",
+      "descriptionAr": "مدينة الحب تنتظرك بمعالمها الشهيرة ومطبخها الراقي. اكتشف برج إيفل ومتحف اللوفر ومونمارتر. تمشّ على نهر السين واستمتع بثقافة المقاهي.",
       "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&auto=format&fit=crop",
       "price": 1299,
       "duration": "5 Days / 4 Nights",
+      "durationAr": "٥ أيام / ٤ ليالٍ",
       "featured": true
     },
     {
       "id": "3",
       "name": "Dubai, UAE",
+      "nameAr": "دبي، الإمارات",
       "description": "Luxury shopping, ultramodern architecture, and desert adventures. Experience the Burj Khalifa, Palm Jumeirah, and traditional souks. From dune bashing to fine dining, Dubai delivers an unforgettable blend of tradition and innovation.",
+      "descriptionAr": "تسوق فاخر وعمارة عصرية ومغامرات صحراوية. جرّب برج خليفة وجزيرة النخيل والأسواق التقليدية. من رحلات الصحراء إلى المطاعم الفاخرة، دبي تجمع التقاليد والابتكار.",
       "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&auto=format&fit=crop",
       "price": 1099,
       "duration": "6 Days / 5 Nights",
+      "durationAr": "٦ أيام / ٥ ليالٍ",
       "featured": true
     },
     {
       "id": "4",
       "name": "Maldives",
+      "nameAr": "المالديف",
       "description": "Crystal clear waters, overwater bungalows, and pristine beaches. The Maldives is the ultimate honeymoon and relaxation destination. Snorkel with marine life, enjoy spa treatments over the water, and watch stunning sunsets from your private villa.",
+      "descriptionAr": "مياه صافية وبانغلو فوق الماء وشواطئ نقية. المالديف وجهة مثالية للقمر والعطلات الهادئة. اغوص مع الحياة البحرية واستمتع بالسبا مع إطلالات غروب خلابة.",
       "image": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&auto=format&fit=crop",
       "price": 1599,
       "duration": "5 Days / 4 Nights",
+      "durationAr": "٥ أيام / ٤ ليالٍ",
       "featured": false
     }
   ],

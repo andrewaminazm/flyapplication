@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useLocale } from '@/contexts/LocaleContext';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function TermsPage() {
   const { t } = useLocale();
@@ -15,16 +14,14 @@ export default function TermsPage() {
             <Link href="/" className="text-2xl font-bold text-blue-600">
               ✈️ FlyTravel
             </Link>
-            <div className="flex items-center gap-4">
-              <LanguageSwitcher />
-              <div className="hidden md:flex gap-6">
+            <div className="hidden md:flex gap-6">
                 <Link href="/destinations" className="text-gray-700 hover:text-blue-600">{t('nav.destinations')}</Link>
                 <Link href="/#offers" className="text-gray-700 hover:text-blue-600">{t('nav.offers')}</Link>
                 <Link href="/about" className="text-gray-700 hover:text-blue-600">{t('nav.about')}</Link>
                 <Link href="/contact" className="text-gray-700 hover:text-blue-600">{t('nav.contact')}</Link>
                 <Link href="/faq" className="text-gray-700 hover:text-blue-600">{t('nav.faq')}</Link>
-              </div>
-              <Link href="/admin/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            </div>
+            <Link href="/admin/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
                 {t('nav.admin')}
               </Link>
             </div>

@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from '@/contexts/LocaleContext';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function AboutPage() {
   const { t } = useLocale();
@@ -14,15 +13,12 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <Link href="/" className="text-2xl font-bold text-blue-600">✈️ FlyTravel</Link>
-            <div className="flex items-center gap-4">
-              <LanguageSwitcher />
-              <div className="hidden md:flex gap-6">
+            <div className="hidden md:flex gap-6">
                 <Link href="/destinations" className="text-gray-700 hover:text-blue-600">{t('nav.destinations')}</Link>
                 <Link href="/#offers" className="text-gray-700 hover:text-blue-600">{t('nav.offers')}</Link>
                 <Link href="/about" className="text-blue-600 font-semibold">{t('nav.about')}</Link>
                 <Link href="/contact" className="text-gray-700 hover:text-blue-600">{t('nav.contact')}</Link>
                 <Link href="/faq" className="text-gray-700 hover:text-blue-600">{t('nav.faq')}</Link>
-              </div>
             </div>
             <Link href="/admin/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">{t('nav.admin')}</Link>
           </div>

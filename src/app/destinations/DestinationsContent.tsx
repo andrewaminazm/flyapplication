@@ -3,20 +3,30 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from '@/contexts/LocaleContext';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 interface Destination {
   id: string;
   name: string;
+  nameAr?: string;
   description: string;
+  descriptionAr?: string;
   image: string;
   price: number;
   duration: string;
+  durationAr?: string;
   featured?: boolean;
 }
 
+function getDisplay(d: Destination, locale: string) {
+  return {
+    name: locale === 'ar' && d.nameAr ? d.nameAr : d.name,
+    description: locale === 'ar' && d.descriptionAr ? d.descriptionAr : d.description,
+    duration: locale === 'ar' && d.durationAr ? d.durationAr : d.duration,
+  };
+}
+
 export default function DestinationsContent({ destinations }: { destinations: Destination[] }) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
 
   return (
     <div className="min-h-screen bg-white">
@@ -24,15 +34,12 @@ export default function DestinationsContent({ destinations }: { destinations: De
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <Link href="/" className="text-2xl font-bold text-blue-600">✈️ FlyTravel</Link>
-            <div className="flex items-center gap-4">
-              <LanguageSwitcher />
-              <div className="hidden md:flex gap-6">
+            <div className="hidden md:flex gap-6">
                 <Link href="/destinations" className="text-blue-600 font-semibold">{t('nav.destinations')}</Link>
                 <Link href="/#offers" className="text-gray-700 hover:text-blue-600">{t('nav.offers')}</Link>
                 <Link href="/about" className="text-gray-700 hover:text-blue-600">{t('nav.about')}</Link>
                 <Link href="/contact" className="text-gray-700 hover:text-blue-600">{t('nav.contact')}</Link>
                 <Link href="/faq" className="text-gray-700 hover:text-blue-600">{t('nav.faq')}</Link>
-              </div>
             </div>
             <Link href="/admin/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">{t('nav.admin')}</Link>
           </div>
@@ -45,7 +52,9 @@ export default function DestinationsContent({ destinations }: { destinations: De
           <p className="text-center text-gray-600 mb-12 text-lg max-w-2xl mx-auto">{t('destinations.subtitle')}</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {destinations.map((destination) => (
+            {destinations.map((destination) => {
+              const display = getDisplay(destination, locale);
+              return (
               <Link
                 key={destination.id}
                 href={`/destinations/${destination.id}`}
@@ -54,7 +63,7 @@ export default function DestinationsContent({ destinations }: { destinations: De
                 <div className="relative h-64">
                   <Image
                     src={destination.image}
-                    alt={destination.name}
+                    alt={display.name}
                     fill
                     className="object-cover"
                   />
@@ -65,18 +74,18 @@ export default function DestinationsContent({ destinations }: { destinations: De
                   )}
                 </div>
                 <div className="p-6">
-                  <h2 className="text-2xl font-bold mb-2">{destination.name}</h2>
-                  <p className="text-gray-600 mb-4 line-clamp-2">{destination.description}</p>
+                  <h2 className="text-2xl font-bold mb-2">{display.name}</h2>
+                  <p className="text-gray-600 mb-4 line-clamp-2">{display.description}</p>
                   <div className="flex justify-between items-center">
                     <div>
-                      <p className="text-sm text-gray-500">{destination.duration}</p>
+                      <p className="text-sm text-gray-500">{display.duration}</p>
                       <p className="text-2xl font-bold text-blue-600">${destination.price}</p>
                     </div>
                     <span className="text-blue-600 font-semibold">{t('destinations.viewDetails')} →</span>
                   </div>
                 </div>
               </Link>
-            ))}
+            );})}
           </div>
 
           {destinations.length === 0 && (

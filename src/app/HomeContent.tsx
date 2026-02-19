@@ -15,8 +15,13 @@ interface HomeContentProps {
 }
 
 export default function HomeContent({ data }: HomeContentProps) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const featuredDestinations = data.destinations.filter((d: any) => d.featured);
+  const getDestDisplay = (d: any) => ({
+    name: locale === 'ar' && d.nameAr ? d.nameAr : d.name,
+    description: locale === 'ar' && d.descriptionAr ? d.descriptionAr : d.description,
+    duration: locale === 'ar' && d.durationAr ? d.durationAr : d.duration,
+  });
   const activeOffers = data.offers.filter((o: any) => o.active);
   const featuredTestimonials = (data.testimonials || []).filter((x: any) => x.featured);
 
@@ -82,24 +87,26 @@ export default function HomeContent({ data }: HomeContentProps) {
           <h2 className="text-4xl font-bold text-center mb-4">{t('home.popularDestinations')}</h2>
           <p className="text-center text-gray-600 mb-12 text-lg">{t('home.handpicked')}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredDestinations.map((dest: any) => (
+            {featuredDestinations.map((dest: any) => {
+              const disp = getDestDisplay(dest);
+              return (
               <Link key={dest.id} href={`/destinations/${dest.id}`} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 block">
                 <div className="relative h-64">
-                  <Image src={dest.image} alt={dest.name} fill className="object-cover" />
+                  <Image src={dest.image} alt={disp.name} fill className="object-cover" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-2">{dest.name}</h3>
-                  <p className="text-gray-600 mb-4">{dest.description}</p>
+                  <h3 className="text-2xl font-bold mb-2">{disp.name}</h3>
+                  <p className="text-gray-600 mb-4">{disp.description}</p>
                   <div className="flex justify-between items-center">
                     <div>
-                      <p className="text-sm text-gray-500">{dest.duration}</p>
+                      <p className="text-sm text-gray-500">{disp.duration}</p>
                       <p className="text-2xl font-bold text-blue-600">${dest.price}</p>
                     </div>
                     <span className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition inline-block">{t('common.bookNow')}</span>
                   </div>
                 </div>
               </Link>
-            ))}
+            );})}
           </div>
           <div className="text-center mt-8">
             <Link href="/destinations" className="text-blue-600 hover:text-blue-700 font-semibold text-lg">{t('home.viewAllDestinations')}</Link>
