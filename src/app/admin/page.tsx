@@ -38,7 +38,24 @@ interface FaqItem {
   order: number;
 }
 
-type TabType = 'destinations' | 'offers' | 'testimonials' | 'faq';
+interface Inquiry {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+  status: string;
+  createdAt: string;
+}
+
+interface Subscriber {
+  id: string;
+  email: string;
+  createdAt: string;
+}
+
+type TabType = 'destinations' | 'offers' | 'testimonials' | 'faq' | 'inquiries' | 'subscribers';
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<TabType>('destinations');
@@ -46,6 +63,8 @@ export default function AdminDashboard() {
   const [offers, setOffers] = useState<Offer[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [faq, setFaq] = useState<FaqItem[]>([]);
+  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
+  const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [editingItem, setEditingItem] = useState<Destination | Offer | Testimonial | FaqItem | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -62,6 +81,8 @@ export default function AdminDashboard() {
       setOffers(data.offers || []);
       setTestimonials(data.testimonials || []);
       setFaq((data.faq || []).sort((a: FaqItem, b: FaqItem) => a.order - b.order));
+      setInquiries(data.inquiries || []);
+      setSubscribers(data.subscribers || []);
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -158,7 +179,22 @@ export default function AdminDashboard() {
       case 'offers': return 'Manage Offers';
       case 'testimonials': return 'Manage Testimonials';
       case 'faq': return 'Manage FAQ';
+      case 'inquiries': return 'Contact Inquiries';
+      case 'subscribers': return 'Newsletter Subscribers';
       default: return '';
+    }
+  };
+
+  const handleInquiryStatus = async (id: string, status: string) => {
+    try {
+      const res = await fetch('/api/travels', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'inquiry_update', data: { id, status } }),
+      });
+      if (res.ok) await fetchData();
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -233,7 +269,7 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-lg shadow mb-6">
           <div className="border-b border-gray-200 overflow-x-auto">
             <nav className="flex -mb-px min-w-max">
-              {(['destinations', 'offers', 'testimonials', 'faq'] as const).map((tab) => (
+              {(['destinations', 'offers', 'testimonials', 'faq', 'inquiries', 'subscribers'] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -252,12 +288,14 @@ export default function AdminDashboard() {
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold">{getTabTitle()}</h2>
-              <button
-                onClick={handleAddNew}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition flex items-center"
-              >
-                <span className="mr-2">+</span> Add New
-              </button>
+              {activeTab !== 'inquiries' && activeTab !== 'subscribers' && (
+                <button
+                  onClick={handleAddNew}
+                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition flex items-center"
+                >
+                  <span className="mr-2">+</span> Add New
+                </button>
+              )}
             </div>
 
             {/* Destinations Table */}
@@ -429,6 +467,98 @@ export default function AdminDashboard() {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            )}
+
+            {/* Inquiries Table */}
+            {activeTab === 'inquiries' && (
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Subject</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {inquiries.map((inq) => (
+                      <tr key={inq.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 text-sm text-gray-500">
+                          {new Date(inq.createdAt).toLocaleDateString()}
+                        </td>
+                        <td className="px-6 py-4 text-sm font-medium text-gray-900">{inq.name}</td>
+                        <td className="px-6 py-4 text-sm text-gray-600">{inq.email}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{inq.subject}</td>
+                        <td className="px-6 py-4">
+                          <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                            inq.status === 'contacted' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                          }`}>
+                            {inq.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-sm font-medium space-x-2">
+                          {inq.status !== 'contacted' && (
+                            <button
+                              onClick={() => handleInquiryStatus(inq.id, 'contacted')}
+                              className="text-green-600 hover:text-green-900"
+                            >
+                              Mark contacted
+                            </button>
+                          )}
+                          <button
+                            onClick={() => handleDelete(inq.id)}
+                            className="text-red-600 hover:text-red-900"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {inquiries.length === 0 && (
+                  <p className="py-8 text-center text-gray-500">No inquiries yet.</p>
+                )}
+              </div>
+            )}
+
+            {/* Subscribers Table */}
+            {activeTab === 'subscribers' && (
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {subscribers.map((sub) => (
+                      <tr key={sub.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 text-sm text-gray-500">
+                          {new Date(sub.createdAt).toLocaleDateString()}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{sub.email}</td>
+                        <td className="px-6 py-4 text-sm font-medium">
+                          <button
+                            onClick={() => handleDelete(sub.id)}
+                            className="text-red-600 hover:text-red-900"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {subscribers.length === 0 && (
+                  <p className="py-8 text-center text-gray-500">No subscribers yet.</p>
+                )}
               </div>
             )}
           </div>

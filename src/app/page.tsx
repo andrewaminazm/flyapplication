@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { formatDate } from './utils/formatDate';
+import NewsletterBlock from '@/components/NewsletterBlock';
 
 async function getData() {
   const filePath = path.join(process.cwd(), 'src/app/data/travels.json');
@@ -216,6 +217,13 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Newsletter */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <NewsletterBlock />
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -232,6 +240,8 @@ export default async function Home() {
                 <li><Link href="/about" className="hover:text-white">About Us</Link></li>
                 <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
                 <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
+                <li><Link href="/terms" className="hover:text-white">Terms</Link></li>
+                <li><Link href="/privacy" className="hover:text-white">Privacy</Link></li>
               </ul>
             </div>
             <div>

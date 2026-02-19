@@ -72,6 +72,11 @@ export async function POST(request: NextRequest) {
       } else {
         allData.faq.push(itemData);
       }
+    } else if (type === 'inquiry_update' && allData.inquiries) {
+      const idx = allData.inquiries.findIndex((i: any) => i.id === itemData.id);
+      if (idx >= 0 && itemData.status) {
+        allData.inquiries[idx].status = itemData.status;
+      }
     }
 
     await writeData(allData);
@@ -104,6 +109,10 @@ export async function DELETE(request: NextRequest) {
       );
     } else if (type === 'faq' && allData.faq) {
       allData.faq = allData.faq.filter((f: any) => f.id !== id);
+    } else if (type === 'inquiries' && allData.inquiries) {
+      allData.inquiries = allData.inquiries.filter((i: any) => i.id !== id);
+    } else if (type === 'subscribers' && allData.subscribers) {
+      allData.subscribers = allData.subscribers.filter((s: any) => s.id !== id);
     }
 
     await writeData(allData);

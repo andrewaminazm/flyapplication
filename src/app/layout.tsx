@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { LocaleProvider } from "@/contexts/LocaleContext";
+import FixedLanguageSwitcher from "@/components/FixedLanguageSwitcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +25,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var c=document.cookie.match(/flytravel_locale=([^;]+)/);var l=c?c[1]:'en';document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';})();`,
+          }}
+        />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <LocaleProvider>
+          <FixedLanguageSwitcher />
+          {children}
+        </LocaleProvider>
       </body>
     </html>
   );

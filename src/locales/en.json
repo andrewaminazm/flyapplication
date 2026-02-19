@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "destinations": "Destinations",
+    "offers": "Offers",
+    "about": "About",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "admin": "Admin",
+    "terms": "Terms",
+    "privacy": "Privacy"
+  },
+  "home": {
+    "heroTitle": "Explore The World With Us",
+    "heroSub": "Discover amazing places at exclusive deals. Your adventure starts here!",
+    "bookNow": "Book Your Trip Now",
+    "specialOffers": "Special Offers",
+    "validUntil": "Valid until",
+    "popularDestinations": "Popular Destinations",
+    "handpicked": "Handpicked destinations for your next adventure",
+    "viewAllDestinations": "View all destinations",
+    "whyChoose": "Why Choose FlyTravel?",
+    "bestPrices": "Best Prices",
+    "bestPricesDesc": "We guarantee the lowest prices on all packages",
+    "qualityService": "Quality Service",
+    "qualityServiceDesc": "24/7 customer support for all your needs",
+    "safeSecure": "Safe & Secure",
+    "safeSecureDesc": "Your safety is our top priority",
+    "testimonialsTitle": "What Our Customers Say",
+    "testimonialsSub": "Real experiences from real travelers",
+    "getInTouch": "Get In Touch",
+    "getInTouchSub": "Ready to book your dream vacation? Our travel experts are here to help!",
+    "emailUs": "Email Us",
+    "callUs": "Call Us",
+    "visitUs": "Visit Us",
+    "learnMore": "Learn more about us"
+  },
+  "footer": {
+    "tagline": "Your trusted travel partner for unforgettable adventures",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "followUs": "Follow Us",
+    "rights": "All rights reserved."
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "We're here to help plan your perfect journey",
+    "sendMessage": "Send Us A Message",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send Message",
+    "success": "Thank you! We'll get back to you soon.",
+    "error": "Something went wrong. Please try again."
+  },
+  "newsletter": {
+    "title": "Subscribe to our newsletter",
+    "placeholder": "Your email address",
+    "subscribe": "Subscribe",
+    "success": "Thanks for subscribing!",
+    "error": "Please enter a valid email."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated",
+    "intro": "Welcome to FlyTravel. By using our website and services, you agree to these terms.",
+    "s1Title": "Services",
+    "s1Body": "We provide travel booking and related services. All bookings are subject to availability and our partner terms.",
+    "s2Title": "Booking & Payment",
+    "s2Body": "Prices are in USD unless stated otherwise. Payment terms will be communicated at the time of booking.",
+    "s3Title": "Cancellations",
+    "s3Body": "Cancellation policies vary by package. Please refer to your booking confirmation or contact us for details.",
+    "s4Title": "Contact",
+    "s4Body": "For questions about these terms, contact us at info@flytravel.com."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated",
+    "intro": "FlyTravel respects your privacy. This policy describes how we collect and use your information.",
+    "s1Title": "Information We Collect",
+    "s1Body": "We collect information you provide when booking, contacting us, or subscribing to our newsletter (name, email, phone, and message content).",
+    "s2Title": "How We Use It",
+    "s2Body": "We use your information to process bookings, respond to inquiries, send updates and offers (if you subscribed), and improve our services.",
+    "s3Title": "Sharing",
+    "s3Body": "We do not sell your data. We may share information with travel partners only as needed to fulfill your booking.",
+    "s4Title": "Contact",
+    "s4Body": "For privacy requests or questions, contact us at info@flytravel.com."
+  },
+  "common": {
+    "bookNow": "Book Now",
+    "loading": "Loading...",
+    "backToWebsite": "Back to website"
+  }
+}
