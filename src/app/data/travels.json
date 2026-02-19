@@ -1,0 +1,58 @@
+{
+  "destinations": [
+    {
+      "id": "1",
+      "name": "Bali, Indonesia",
+      "description": "Experience paradise with stunning beaches, ancient temples, and vibrant culture",
+      "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&auto=format&fit=crop",
+      "price": 899,
+      "duration": "7 Days / 6 Nights",
+      "featured": true
+    },
+    {
+      "id": "2",
+      "name": "Paris, France",
+      "description": "The City of Love awaits with iconic landmarks and exquisite cuisine",
+      "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&auto=format&fit=crop",
+      "price": 1299,
+      "duration": "5 Days / 4 Nights",
+      "featured": true
+    },
+    {
+      "id": "3",
+      "name": "Dubai, UAE",
+      "description": "Luxury shopping, ultramodern architecture, and desert adventures",
+      "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&auto=format&fit=crop",
+      "price": 1099,
+      "duration": "6 Days / 5 Nights",
+      "featured": true
+    },
+    {
+      "id": "4",
+      "name": "Maldives",
+      "description": "Crystal clear waters, overwater bungalows, and pristine beaches",
+      "image": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&auto=format&fit=crop",
+      "price": 1599,
+      "duration": "5 Days / 4 Nights",
+      "featured": false
+    }
+  ],
+  "offers": [
+    {
+      "id": "1",
+      "title": "Summer Special - 30% OFF",
+      "description": "Book your summer vacation now and save big!",
+      "discount": "30",
+      "validUntil": "2026-06-30",
+      "active": true
+    },
+    {
+      "id": "2",
+      "title": "Early Bird Discount",
+      "description": "Book 60 days in advance and get 20% off",
+      "discount": "20",
+      "validUntil": "2026-12-31",
+      "active": true
+    }
+  ]
+}
