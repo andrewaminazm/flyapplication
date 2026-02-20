@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { formatDate } from '../utils/formatDate';
+import { useLocale } from '@/contexts/LocaleContext';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 interface Destination {
   id: string;
@@ -58,6 +60,7 @@ interface Subscriber {
 type TabType = 'destinations' | 'offers' | 'testimonials' | 'faq' | 'inquiries' | 'subscribers';
 
 export default function AdminDashboard() {
+  const { t } = useLocale();
   const [activeTab, setActiveTab] = useState<TabType>('destinations');
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [offers, setOffers] = useState<Offer[]>([]);
@@ -175,12 +178,12 @@ export default function AdminDashboard() {
 
   const getTabTitle = () => {
     switch (activeTab) {
-      case 'destinations': return 'Manage Destinations';
-      case 'offers': return 'Manage Offers';
-      case 'testimonials': return 'Manage Testimonials';
-      case 'faq': return 'Manage FAQ';
-      case 'inquiries': return 'Contact Inquiries';
-      case 'subscribers': return 'Newsletter Subscribers';
+      case 'destinations': return t('admin.manageDestinations');
+      case 'offers': return t('admin.manageOffers');
+      case 'testimonials': return t('admin.manageTestimonials');
+      case 'faq': return t('admin.manageFaq');
+      case 'inquiries': return t('admin.contactInquiries');
+      case 'subscribers': return t('admin.newsletterSubscribers');
       default: return '';
     }
   };
@@ -201,7 +204,7 @@ export default function AdminDashboard() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-2xl">Loading...</div>
+        <div className="text-2xl">{t('admin.loading')}</div>
       </div>
     );
   }
@@ -213,9 +216,10 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center space-x-4">
-              <span className="text-2xl font-bold">🔧 Admin Dashboard</span>
+              <span className="text-2xl font-bold">🔧 {t('admin.dashboardTitle')}</span>
             </div>
             <div className="flex items-center gap-3">
+              <LanguageSwitcher />
               <button
                 onClick={async () => {
                   await fetch('/api/admin/logout', { method: 'POST' });
@@ -223,10 +227,10 @@ export default function AdminDashboard() {
                 }}
                 className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition"
               >
-                Logout
+                {t('admin.logout')}
               </button>
               <Link href="/" className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
-                ← Back to Website
+                ← {t('admin.backToWebsite')}
               </Link>
             </div>
           </div>
@@ -239,7 +243,7 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-sm">Total Destinations</p>
+                <p className="text-gray-500 text-sm">{t('admin.totalDestinations')}</p>
                 <p className="text-3xl font-bold">{destinations.length}</p>
               </div>
               <div className="text-4xl">🌍</div>
@@ -248,7 +252,7 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-sm">Active Offers</p>
+                <p className="text-gray-500 text-sm">{t('admin.activeOffers')}</p>
                 <p className="text-3xl font-bold">{offers.filter(o => o.active).length}</p>
               </div>
               <div className="text-4xl">🎁</div>
@@ -257,7 +261,7 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-sm">Featured</p>
+                <p className="text-gray-500 text-sm">{t('admin.featured')}</p>
                 <p className="text-3xl font-bold">{destinations.filter(d => d.featured).length}</p>
               </div>
               <div className="text-4xl">⭐</div>
@@ -269,19 +273,31 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-lg shadow mb-6">
           <div className="border-b border-gray-200 overflow-x-auto">
             <nav className="flex -mb-px min-w-max">
-              {(['destinations', 'offers', 'testimonials', 'faq', 'inquiries', 'subscribers'] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`py-4 px-6 text-center border-b-2 font-medium text-sm whitespace-nowrap ${
-                    activeTab === tab
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                </button>
-              ))}
+              {([
+                  'destinations',
+                  'offers',
+                  'testimonials',
+                  'faq',
+                  'inquiries',
+                  'subscribers',
+                ] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`py-4 px-6 text-center border-b-2 font-medium text-sm whitespace-nowrap ${
+                      activeTab === tab
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    {tab === 'destinations' && t('admin.tabDestinations')}
+                    {tab === 'offers' && t('admin.tabOffers')}
+                    {tab === 'testimonials' && t('admin.tabTestimonials')}
+                    {tab === 'faq' && t('admin.tabFaq')}
+                    {tab === 'inquiries' && t('admin.tabInquiries')}
+                    {tab === 'subscribers' && t('admin.tabSubscribers')}
+                  </button>
+                ))}
             </nav>
           </div>
 
@@ -293,7 +309,7 @@ export default function AdminDashboard() {
                   onClick={handleAddNew}
                   className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition flex items-center"
                 >
-                  <span className="mr-2">+</span> Add New
+                  <span className="mr-2">+</span> {t('admin.addNew')}
                 </button>
               )}
             </div>
@@ -304,11 +320,11 @@ export default function AdminDashboard() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Price</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Duration</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Featured</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.name')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.price')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.duration')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.featured')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.actions')}</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -324,7 +340,7 @@ export default function AdminDashboard() {
                           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                             dest.featured ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                           }`}>
-                            {dest.featured ? 'Yes' : 'No'}
+                            {dest.featured ? t('admin.yes') : t('admin.no')}
                           </span>
                         </td>
                         <td className="px-6 py-4 text-sm font-medium space-x-2">
@@ -335,13 +351,13 @@ export default function AdminDashboard() {
                             }}
                             className="text-blue-600 hover:text-blue-900"
                           >
-                            Edit
+                            {t('admin.edit')}
                           </button>
                           <button
                             onClick={() => handleDelete(dest.id)}
                             className="text-red-600 hover:text-red-900"
                           >
-                            Delete
+                            {t('admin.delete')}
                           </button>
                         </td>
                       </tr>
@@ -357,11 +373,11 @@ export default function AdminDashboard() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Discount</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Valid Until</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.title')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.discount')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.validUntil')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.status')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.actions')}</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -379,7 +395,7 @@ export default function AdminDashboard() {
                           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                             offer.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                           }`}>
-                            {offer.active ? 'Active' : 'Inactive'}
+                            {offer.active ? t('admin.active') : t('admin.inactive')}
                           </span>
                         </td>
                         <td className="px-6 py-4 text-sm font-medium space-x-2">
@@ -390,13 +406,13 @@ export default function AdminDashboard() {
                             }}
                             className="text-blue-600 hover:text-blue-900"
                           >
-                            Edit
+                            {t('admin.edit')}
                           </button>
                           <button
                             onClick={() => handleDelete(offer.id)}
                             className="text-red-600 hover:text-red-900"
                           >
-                            Delete
+                            {t('admin.delete')}
                           </button>
                         </td>
                       </tr>
@@ -412,27 +428,27 @@ export default function AdminDashboard() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Author</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Review</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rating</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Featured</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.author')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.review')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.rating')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.featured')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.actions')}</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {testimonials.map((t) => (
-                      <tr key={t.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 text-sm font-medium text-gray-900">{t.author}</td>
-                        <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{t.text}</td>
-                        <td className="px-6 py-4 text-sm">{t.rating} ★</td>
+                    {testimonials.map((item) => (
+                      <tr key={item.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 text-sm font-medium text-gray-900">{item.author}</td>
+                        <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{item.text}</td>
+                        <td className="px-6 py-4 text-sm">{item.rating} ★</td>
                         <td className="px-6 py-4">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${t.featured ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
-                            {t.featured ? 'Yes' : 'No'}
+                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${item.featured ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                            {item.featured ? t('admin.yes') : t('admin.no')}
                           </span>
                         </td>
                         <td className="px-6 py-4 text-sm font-medium space-x-2">
-                          <button onClick={() => { setEditingItem(t); setShowForm(true); }} className="text-blue-600 hover:text-blue-900">Edit</button>
-                          <button onClick={() => handleDelete(t.id)} className="text-red-600 hover:text-red-900">Delete</button>
+                          <button onClick={() => { setEditingItem(item); setShowForm(true); }} className="text-blue-600 hover:text-blue-900">{t('admin.edit')}</button>
+                          <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:text-red-900">{t('admin.delete')}</button>
                         </td>
                       </tr>
                     ))}
@@ -447,10 +463,10 @@ export default function AdminDashboard() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Question</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Answer</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.order')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.question')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.answer')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.actions')}</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -460,8 +476,8 @@ export default function AdminDashboard() {
                         <td className="px-6 py-4 text-sm font-medium text-gray-900">{f.question}</td>
                         <td className="px-6 py-4 text-sm text-gray-500 max-w-md truncate">{f.answer}</td>
                         <td className="px-6 py-4 text-sm font-medium space-x-2">
-                          <button onClick={() => { setEditingItem(f); setShowForm(true); }} className="text-blue-600 hover:text-blue-900">Edit</button>
-                          <button onClick={() => handleDelete(f.id)} className="text-red-600 hover:text-red-900">Delete</button>
+                          <button onClick={() => { setEditingItem(f); setShowForm(true); }} className="text-blue-600 hover:text-blue-900">{t('admin.edit')}</button>
+                          <button onClick={() => handleDelete(f.id)} className="text-red-600 hover:text-red-900">{t('admin.delete')}</button>
                         </td>
                       </tr>
                     ))}
@@ -476,12 +492,12 @@ export default function AdminDashboard() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Subject</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.date')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.name')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.email')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.subject')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.status')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.actions')}</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -497,7 +513,7 @@ export default function AdminDashboard() {
                           <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
                             inq.status === 'contacted' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                           }`}>
-                            {inq.status}
+                            {inq.status === 'contacted' ? t('admin.contacted') : inq.status}
                           </span>
                         </td>
                         <td className="px-6 py-4 text-sm font-medium space-x-2">
@@ -506,14 +522,14 @@ export default function AdminDashboard() {
                               onClick={() => handleInquiryStatus(inq.id, 'contacted')}
                               className="text-green-600 hover:text-green-900"
                             >
-                              Mark contacted
+                              {t('admin.markContacted')}
                             </button>
                           )}
                           <button
                             onClick={() => handleDelete(inq.id)}
                             className="text-red-600 hover:text-red-900"
                           >
-                            Delete
+                            {t('admin.delete')}
                           </button>
                         </td>
                       </tr>
@@ -521,7 +537,7 @@ export default function AdminDashboard() {
                   </tbody>
                 </table>
                 {inquiries.length === 0 && (
-                  <p className="py-8 text-center text-gray-500">No inquiries yet.</p>
+                  <p className="py-8 text-center text-gray-500">{t('admin.noInquiries')}</p>
                 )}
               </div>
             )}
@@ -532,9 +548,9 @@ export default function AdminDashboard() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.date')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.email')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.actions')}</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -549,7 +565,7 @@ export default function AdminDashboard() {
                             onClick={() => handleDelete(sub.id)}
                             className="text-red-600 hover:text-red-900"
                           >
-                            Delete
+                            {t('admin.delete')}
                           </button>
                         </td>
                       </tr>
@@ -557,7 +573,7 @@ export default function AdminDashboard() {
                   </tbody>
                 </table>
                 {subscribers.length === 0 && (
-                  <p className="py-8 text-center text-gray-500">No subscribers yet.</p>
+                  <p className="py-8 text-center text-gray-500">{t('admin.noSubscribers')}</p>
                 )}
               </div>
             )}
@@ -570,16 +586,16 @@ export default function AdminDashboard() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <h3 className="text-2xl font-bold mb-6">
-              {activeTab === 'destinations' && 'Destination Details'}
-              {activeTab === 'offers' && 'Offer Details'}
-              {activeTab === 'testimonials' && 'Testimonial'}
-              {activeTab === 'faq' && 'FAQ Item'}
+              {activeTab === 'destinations' && t('admin.destinationDetails')}
+              {activeTab === 'offers' && t('admin.offerDetails')}
+              {activeTab === 'testimonials' && t('admin.testimonial')}
+              {activeTab === 'faq' && t('admin.faqItem')}
             </h3>
 
             {activeTab === 'destinations' ? (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.name')}</label>
                   <input
                     type="text"
                     value={(editingItem as Destination).name}
@@ -588,7 +604,7 @@ export default function AdminDashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.description')}</label>
                   <textarea
                     value={(editingItem as Destination).description}
                     onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value } as Destination)}
@@ -597,7 +613,7 @@ export default function AdminDashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.imageUrl')}</label>
                   <input
                     type="text"
                     value={(editingItem as Destination).image}
@@ -607,7 +623,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Price ($)</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.priceDollar')}</label>
                     <input
                       type="number"
                       value={(editingItem as Destination).price}
@@ -616,12 +632,12 @@ export default function AdminDashboard() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.duration')}</label>
                     <input
                       type="text"
                       value={(editingItem as Destination).duration}
                       onChange={(e) => setEditingItem({ ...editingItem, duration: e.target.value } as Destination)}
-                      placeholder="e.g., 7 Days / 6 Nights"
+                      placeholder={t('admin.durationPlaceholder')}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
@@ -634,14 +650,14 @@ export default function AdminDashboard() {
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
                   <label className="ml-2 block text-sm text-gray-900">
-                    Show on homepage (Featured)
+                    {t('admin.showOnHomepageFeatured')}
                   </label>
                 </div>
               </div>
             ) : activeTab === 'offers' ? (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.title')}</label>
                   <input
                     type="text"
                     value={(editingItem as Offer).title}
@@ -650,7 +666,7 @@ export default function AdminDashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.description')}</label>
                   <textarea
                     value={(editingItem as Offer).description}
                     onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value } as Offer)}
@@ -660,7 +676,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Discount (%)</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.discountPercent')}</label>
                     <input
                       type="text"
                       value={(editingItem as Offer).discount}
@@ -669,7 +685,7 @@ export default function AdminDashboard() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Valid Until</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.validUntil')}</label>
                     <input
                       type="date"
                       value={(editingItem as Offer).validUntil}
@@ -686,14 +702,14 @@ export default function AdminDashboard() {
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
                   <label className="ml-2 block text-sm text-gray-900">
-                    Active (Show on website)
+                    {t('admin.activeShowOnWebsite')}
                   </label>
                 </div>
               </div>
             ) : activeTab === 'testimonials' ? (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Author Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.authorName')}</label>
                   <input
                     type="text"
                     value={(editingItem as Testimonial).author}
@@ -703,7 +719,7 @@ export default function AdminDashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Review Text</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.reviewText')}</label>
                   <textarea
                     value={(editingItem as Testimonial).text}
                     onChange={(e) => setEditingItem({ ...editingItem, text: e.target.value } as Testimonial)}
@@ -713,7 +729,7 @@ export default function AdminDashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Rating (1-5)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.rating15')}</label>
                   <input
                     type="number"
                     min={1}
@@ -731,14 +747,14 @@ export default function AdminDashboard() {
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
                   <label className="ml-2 block text-sm text-gray-900">
-                    Show on homepage
+                    {t('admin.showOnHomepage')}
                   </label>
                 </div>
               </div>
             ) : activeTab === 'faq' ? (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Question</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.question')}</label>
                   <input
                     type="text"
                     value={(editingItem as FaqItem).question}
@@ -748,7 +764,7 @@ export default function AdminDashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Answer</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.answer')}</label>
                   <textarea
                     value={(editingItem as FaqItem).answer}
                     onChange={(e) => setEditingItem({ ...editingItem, answer: e.target.value } as FaqItem)}
@@ -757,7 +773,7 @@ export default function AdminDashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Display Order</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.displayOrder')}</label>
                   <input
                     type="number"
                     min={1}
@@ -777,13 +793,13 @@ export default function AdminDashboard() {
                 }}
                 className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
               >
-                Cancel
+                {t('admin.cancel')}
               </button>
               <button
                 onClick={handleSave}
                 className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
               >
-                Save Changes
+                {t('admin.saveChanges')}
               </button>
             </div>
           </div>

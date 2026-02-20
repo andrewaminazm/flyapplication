@@ -3,10 +3,13 @@
 import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useLocale } from '@/contexts/LocaleContext';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 function AdminLoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { t } = useLocale();
   const redirect = searchParams.get('redirect') || '/admin';
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +31,7 @@ function AdminLoginForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || 'Login failed');
+        setError(data.error || t('admin.loginFailed'));
         setLoading(false);
         return;
       }
@@ -36,25 +39,28 @@ function AdminLoginForm() {
       router.push(redirect);
       router.refresh();
     } catch {
-      setError('Something went wrong. Please try again.');
+      setError(t('admin.errorGeneric'));
       setLoading(false);
     }
   };
 
   return (
     <>
+      <div className="flex justify-end mb-4">
+        <LanguageSwitcher />
+      </div>
       <div className="text-center mb-8">
         <Link href="/" className="text-2xl font-bold text-blue-600">
           ✈️ FlyTravel
         </Link>
-        <h1 className="text-2xl font-bold mt-4 text-gray-900">Admin Login</h1>
-        <p className="text-gray-500 mt-2">Enter your credentials to access the dashboard</p>
+        <h1 className="text-2xl font-bold mt-4 text-gray-900">{t('admin.loginTitle')}</h1>
+        <p className="text-gray-500 mt-2">{t('admin.loginSubtitle')}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
-            Username
+            {t('admin.username')}
           </label>
           <input
             id="username"
@@ -70,7 +76,7 @@ function AdminLoginForm() {
         </div>
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-            Password
+            {t('admin.password')}
           </label>
           <input
             id="password"
@@ -80,7 +86,7 @@ function AdminLoginForm() {
             required
             autoComplete="current-password"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter password"
+            placeholder=""
           />
         </div>
 
@@ -95,13 +101,13 @@ function AdminLoginForm() {
           disabled={loading}
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50"
         >
-          {loading ? 'Logging in...' : 'Login'}
+          {loading ? t('admin.loggingIn') : t('admin.login')}
         </button>
       </form>
 
       <p className="text-center mt-6 text-sm text-gray-500">
         <Link href="/" className="text-blue-600 hover:text-blue-700">
-          ← Back to website
+          ← {t('admin.backToWebsite')}
         </Link>
       </p>
     </>
@@ -109,10 +115,11 @@ function AdminLoginForm() {
 }
 
 export default function AdminLoginPage() {
+  const { t } = useLocale();
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
-        <Suspense fallback={<div className="text-center text-gray-500 py-8">Loading...</div>}>
+        <Suspense fallback={<div className="text-center text-gray-500 py-8">{t('admin.loading')}</div>}>
           <AdminLoginForm />
         </Suspense>
       </div>
