@@ -22,7 +22,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
           <button
             type="button"
             onClick={() => setOpenId(openId === item.id ? null : item.id)}
-            className="w-full px-6 py-4 text-left font-semibold text-gray-900 bg-gray-50 hover:bg-gray-100 flex justify-between items-center"
+            className="w-full px-4 sm:px-6 py-4 min-h-[48px] text-start font-semibold text-gray-900 bg-gray-50 hover:bg-gray-100 flex justify-between items-center gap-3"
           >
             <span>{item.question}</span>
             <span className="text-2xl text-gray-400">
@@ -30,7 +30,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
             </span>
           </button>
           {openId === item.id && (
-            <div className="px-6 py-4 bg-white text-gray-600 border-t border-gray-200">
+            <div className="px-4 sm:px-6 py-4 bg-white text-gray-600 border-t border-gray-200 text-start">
               {item.answer}
             </div>
           )}

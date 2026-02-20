@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from '@/contexts/LocaleContext';
+import SiteNav from '@/components/SiteNav';
 
 interface Destination {
   id: string;
@@ -28,25 +29,11 @@ export default function DestinationDetailContent({ destination }: { destination:
   const { t, locale } = useLocale();
   const display = getDisplay(destination, locale);
 
-  return (
+return (
     <div className="min-h-screen bg-white">
-      <nav className="bg-white shadow-sm fixed w-full top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <Link href="/" className="text-2xl font-bold text-blue-600">✈️ FlyTravel</Link>
-            <div className="hidden md:flex gap-6">
-                <Link href="/destinations" className="text-blue-600 font-semibold">{t('nav.destinations')}</Link>
-                <Link href="/#offers" className="text-gray-700 hover:text-blue-600">{t('nav.offers')}</Link>
-                <Link href="/about" className="text-gray-700 hover:text-blue-600">{t('nav.about')}</Link>
-                <Link href="/contact" className="text-gray-700 hover:text-blue-600">{t('nav.contact')}</Link>
-                <Link href="/faq" className="text-gray-700 hover:text-blue-600">{t('nav.faq')}</Link>
-            </div>
-            <Link href="/admin/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">{t('nav.admin')}</Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav active="destinations" />
 
-      <div className="pt-16">
+      <div className="pt-14 sm:pt-16">
         <div className="relative h-[50vh] min-h-[300px]">
           <Image
             src={destination.image}
@@ -56,9 +43,9 @@ export default function DestinationDetailContent({ destination }: { destination:
             priority
           />
           <div className="absolute inset-0 bg-black/40 flex items-end">
-            <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-8">
-              <h1 className="text-4xl md:text-5xl font-bold text-white">{display.name}</h1>
-              <p className="text-xl text-white/90 mt-2">{display.duration}</p>
+            <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white">{display.name}</h1>
+              <p className="text-base sm:text-xl text-white/90 mt-2">{display.duration}</p>
             </div>
           </div>
         </div>
@@ -70,7 +57,7 @@ export default function DestinationDetailContent({ destination }: { destination:
               <p className="text-gray-600 text-lg leading-relaxed">{display.description}</p>
             </div>
             <div className="lg:col-span-1">
-              <div className="bg-gray-50 rounded-xl p-8 sticky top-24">
+              <div className="bg-gray-50 rounded-xl p-6 sm:p-8 lg:sticky lg:top-24">
                 <p className="text-sm text-gray-500 mb-1">{t('destination.from')}</p>
                 <p className="text-4xl font-bold text-blue-600 mb-2">${destination.price}</p>
                 <p className="text-gray-600 mb-6">{t('destination.perPerson')}</p>

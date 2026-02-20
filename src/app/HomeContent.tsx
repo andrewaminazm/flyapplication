@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useLocale } from '@/contexts/LocaleContext';
 import { formatDate } from './utils/formatDate';
 import NewsletterBlock from '@/components/NewsletterBlock';
+import SiteNav from '@/components/SiteNav';
 
 interface HomeContentProps {
   data: {
@@ -27,31 +28,17 @@ export default function HomeContent({ data }: HomeContentProps) {
 
   return (
     <div className="min-h-screen bg-white">
-      <nav className="bg-white shadow-sm fixed w-full top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <Link href="/" className="text-2xl font-bold text-blue-600">✈️ FlyTravel</Link>
-            <div className="hidden md:flex space-x-8">
-              <Link href="/destinations" className="text-gray-700 hover:text-blue-600">{t('nav.destinations')}</Link>
-              <a href="#offers" className="text-gray-700 hover:text-blue-600">{t('nav.offers')}</a>
-              <Link href="/about" className="text-gray-700 hover:text-blue-600">{t('nav.about')}</Link>
-              <Link href="/contact" className="text-gray-700 hover:text-blue-600">{t('nav.contact')}</Link>
-              <Link href="/faq" className="text-gray-700 hover:text-blue-600">{t('nav.faq')}</Link>
-            </div>
-            <Link href="/admin/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">{t('nav.admin')}</Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav />
 
-      <div className="relative h-screen pt-16">
+      <div className="relative h-screen pt-14 sm:pt-16">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600">
           <div className="absolute inset-0 bg-black opacity-40" />
         </div>
         <div className="relative h-full flex items-center justify-center text-center px-4">
           <div className="max-w-4xl">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">{t('home.heroTitle')}</h1>
-            <p className="text-xl md:text-2xl text-white mb-8">{t('home.heroSub')}</p>
-            <Link href="/destinations" className="inline-block bg-white text-blue-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition transform hover:scale-105">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-4 sm:mb-6">{t('home.heroTitle')}</h1>
+            <p className="text-base sm:text-xl md:text-2xl text-white mb-6 sm:mb-8 px-1">{t('home.heroSub')}</p>
+            <Link href="/destinations" className="inline-block bg-white text-blue-600 px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:bg-gray-100 transition transform hover:scale-105 active:scale-100">
               {t('home.bookNow')}
             </Link>
           </div>
@@ -59,9 +46,9 @@ export default function HomeContent({ data }: HomeContentProps) {
       </div>
 
       {activeOffers.length > 0 && (
-        <section id="offers" className="py-16 bg-yellow-50">
+        <section id="offers" className="py-10 sm:py-16 bg-yellow-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl font-bold text-center mb-12">🎉 {t('home.specialOffers')}</h2>
+            <h2 className="text-2xl sm:text-4xl font-bold text-center mb-8 sm:mb-12">🎉 {t('home.specialOffers')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {activeOffers.map((offer: any) => (
                 <Link key={offer.id} href={`/offers/${offer.id}`} className="block bg-white rounded-xl shadow-lg p-8 border-2 border-yellow-400 hover:shadow-xl transition">
@@ -82,10 +69,10 @@ export default function HomeContent({ data }: HomeContentProps) {
         </section>
       )}
 
-      <section id="destinations" className="py-16 bg-white">
+      <section id="destinations" className="py-10 sm:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-4">{t('home.popularDestinations')}</h2>
-          <p className="text-center text-gray-600 mb-12 text-lg">{t('home.handpicked')}</p>
+          <h2 className="text-2xl sm:text-4xl font-bold text-center mb-3 sm:mb-4">{t('home.popularDestinations')}</h2>
+          <p className="text-center text-gray-600 mb-8 sm:mb-12 text-base sm:text-lg">{t('home.handpicked')}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredDestinations.map((dest: any) => {
               const disp = getDestDisplay(dest);

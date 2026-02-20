@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from '@/contexts/LocaleContext';
+import SiteNav from '@/components/SiteNav';
 
 interface Destination {
   id: string;
@@ -30,25 +31,11 @@ export default function DestinationsContent({ destinations }: { destinations: De
 
   return (
     <div className="min-h-screen bg-white">
-      <nav className="bg-white shadow-sm fixed w-full top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <Link href="/" className="text-2xl font-bold text-blue-600">✈️ FlyTravel</Link>
-            <div className="hidden md:flex gap-6">
-                <Link href="/destinations" className="text-blue-600 font-semibold">{t('nav.destinations')}</Link>
-                <Link href="/#offers" className="text-gray-700 hover:text-blue-600">{t('nav.offers')}</Link>
-                <Link href="/about" className="text-gray-700 hover:text-blue-600">{t('nav.about')}</Link>
-                <Link href="/contact" className="text-gray-700 hover:text-blue-600">{t('nav.contact')}</Link>
-                <Link href="/faq" className="text-gray-700 hover:text-blue-600">{t('nav.faq')}</Link>
-            </div>
-            <Link href="/admin/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">{t('nav.admin')}</Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav active="destinations" />
 
-      <div className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-center mb-4">{t('destinations.title')}</h1>
+      <div className="pt-20 sm:pt-24 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-3 sm:mb-4">{t('destinations.title')}</h1>
           <p className="text-center text-gray-600 mb-12 text-lg max-w-2xl mx-auto">{t('destinations.subtitle')}</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

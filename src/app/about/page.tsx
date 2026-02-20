@@ -3,36 +3,23 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from '@/contexts/LocaleContext';
+import SiteNav from '@/components/SiteNav';
 
 export default function AboutPage() {
   const { t } = useLocale();
 
   return (
     <div className="min-h-screen bg-white">
-      <nav className="bg-white shadow-sm fixed w-full top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <Link href="/" className="text-2xl font-bold text-blue-600">✈️ FlyTravel</Link>
-            <div className="hidden md:flex gap-6">
-                <Link href="/destinations" className="text-gray-700 hover:text-blue-600">{t('nav.destinations')}</Link>
-                <Link href="/#offers" className="text-gray-700 hover:text-blue-600">{t('nav.offers')}</Link>
-                <Link href="/about" className="text-blue-600 font-semibold">{t('nav.about')}</Link>
-                <Link href="/contact" className="text-gray-700 hover:text-blue-600">{t('nav.contact')}</Link>
-                <Link href="/faq" className="text-gray-700 hover:text-blue-600">{t('nav.faq')}</Link>
-            </div>
-            <Link href="/admin/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">{t('nav.admin')}</Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav active="about" />
 
-      <div className="relative h-96 pt-16">
+      <div className="relative h-64 sm:h-96 pt-14 sm:pt-16">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600">
           <div className="absolute inset-0 bg-black opacity-30" />
         </div>
         <div className="relative h-full flex items-center justify-center text-center px-4">
           <div className="max-w-4xl">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">{t('about.title')}</h1>
-            <p className="text-xl text-white">{t('about.subtitle')}</p>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-3 sm:mb-4">{t('about.title')}</h1>
+            <p className="text-base sm:text-xl text-white">{t('about.subtitle')}</p>
           </div>
         </div>
       </div>
